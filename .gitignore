@@ -1,11 +1,17 @@
-# dataset
-yelp_dataset
-
 # mac
 .DS_Store
 
 # IDE
 .idea
+
+# python
+__pycache__
+
+# dataset
+yelp_dataset
+
+# database
+yelp.db
 
 # jupyter notebook
 .ipynb_checkpoints
