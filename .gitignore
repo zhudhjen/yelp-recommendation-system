@@ -6,3 +6,6 @@ yelp_dataset
 
 # IDE
 .idea
+
+# jupyter notebook
+.ipynb_checkpoints
