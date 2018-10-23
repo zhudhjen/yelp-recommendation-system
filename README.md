@@ -11,7 +11,7 @@ Install Miniconda **(preferred)** or Anaconda [here](https://conda.io/docs/user-
 Create a new python environment with `requirements.txt`.
 
 ```
-conda create --name rec_sys --file requirements.txt
+conda create -n rec_sys --file requirements.txt
 ```
 
 Activate the `rec_sys` environment.
@@ -20,11 +20,7 @@ Activate the `rec_sys` environment.
 source activate rec_sys
 ```
 
-Appending the following alias to your bash setting may save some time on activating the environment.
-
-```
-alias rs="source activate rec_sys"
-```
+**Note**: The `requirements.txt` may not contain all required packages. Please use `conda install` if there is any missing package.
 
 ## Data Viewer
 
