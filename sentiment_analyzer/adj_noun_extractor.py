@@ -22,6 +22,13 @@ class AdjNounExtractor:
                     if child.dep_ == 'neg':
                         adv = child.text
 
+                if token.dep_ == 'attr':
+                    for ancestor in token.ancestors:
+                        if ancestor.pos_ == 'VERB':
+                            for child in ancestor.children:
+                                if child.dep_ == 'neg':
+                                    adv = child.text
+
             if token.pos_ == 'VERB':
                 for child in token.children:
                     if child.dep_ == 'acomp':
@@ -80,7 +87,7 @@ if __name__ == '__main__':
         # adv
         [('extremely good', 'food'), ('wonderfully awful', 'movie')],
         [('extremely not bad', 'food'), ('not bad', 'food')],
-        [('bad', 'thing'), ('not bad', 'It')],
+        [('not bad', 'thing'), ('not bad', 'It')],
 
         # Real world examples
         [('Great', 'place'), ('decent', 'prices'), ('fun', 'ambience')],
