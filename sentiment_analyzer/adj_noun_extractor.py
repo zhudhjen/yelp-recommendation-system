@@ -5,7 +5,7 @@ class AdjNounExtractor:
     def __init__(self):
         self.nlp = spacy.load('en')
 
-    def extract(self, text):
+    def extract(self, text, lemma=False):
         doc = self.nlp(text)
 
         adj_noun_pairs = []
@@ -44,10 +44,15 @@ class AdjNounExtractor:
                     if lefts:
                         adv = " ".join(lefts)
 
-                    if adv is not None:
-                        adj_noun_pairs.append((adv + ' ' + adj.text, noun.text))
+                    if lemma:
+                        noun_text = noun.lemma_ if noun.lemma_ != '-PRON-' else noun.text.lower()
                     else:
-                        adj_noun_pairs.append((adj.text, noun.text))
+                        noun_text = noun.text
+
+                    if adv is not None:
+                        adj_noun_pairs.append((adv + ' ' + adj.text, noun_text))
+                    else:
+                        adj_noun_pairs.append((adj.text, noun_text))
 
         return adj_noun_pairs
 
@@ -102,3 +107,4 @@ if __name__ == '__main__':
         print("True" if res == r else "False")
         # print(s)
         # print(res)
+        # print()
