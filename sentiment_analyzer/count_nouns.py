@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     nouns_count = dict()
     with open(input_file, 'r') as f:
-        for line in f.readlines()[0:100]:
+        for line in f:
             review = json.loads(line)
             pairs = extractor.extract(review['text'], lemma=True)
             for p in pairs:
