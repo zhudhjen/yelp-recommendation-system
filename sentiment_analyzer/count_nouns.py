@@ -7,6 +7,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) != 2:
         print('Please provide the path to the input file.')
+        sys.exit(-1)
 
     input_file = sys.argv[1]
 
