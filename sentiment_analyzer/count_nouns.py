@@ -5,11 +5,12 @@ from adj_noun_extractor import AdjNounExtractor
 
 if __name__ == '__main__':
 
-    if len(sys.argv) != 2:
-        print('Please provide the path to the input file.')
+    if len(sys.argv) != 3:
+        print('Please provide path to the input file and the output file.')
         sys.exit(-1)
 
     input_file = sys.argv[1]
+    output_file = sys.argv[2]
 
     extractor = AdjNounExtractor()
 
@@ -24,7 +25,6 @@ if __name__ == '__main__':
                 else:
                     nouns_count[p[1]] = 1
 
-    output_file = 'nouns_count.txt'
     with open(output_file, 'w') as f:
         for noun, count in nouns_count.items():
             f.write(noun + ' ' + str(count) + '\n')
