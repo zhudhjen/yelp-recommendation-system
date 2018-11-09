@@ -10,8 +10,8 @@ if __name__ == '__main__':
     output_file = sys.argv[2]
     threshold = int(sys.argv[3]) if len(sys.argv) >= 4 else 2
 
-    nouns = set()
     size = 0
+    nouns_count = []
     with open(input_file, 'r') as f:
         for line in f:
             size += 1
@@ -19,11 +19,13 @@ if __name__ == '__main__':
             count = int(count)
 
             if count >= threshold:
-                nouns.add(noun)
+                nouns_count.append((noun, count))
+
+    nouns_count.sort(key=lambda x: x[1], reverse=True)
 
     with open(output_file, 'w') as f:
-        for noun in nouns:
+        for noun, _ in nouns_count:
             f.write(noun + '\n')
 
     print("Before filtering:", str(size))
-    print("After filtering:", str(len(nouns)))
+    print("After filtering:", str(len(nouns_count)))
