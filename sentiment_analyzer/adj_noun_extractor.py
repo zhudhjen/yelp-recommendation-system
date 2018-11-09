@@ -5,7 +5,7 @@ class AdjNounExtractor:
     def __init__(self):
         self.nlp = spacy.load('en')
 
-    def extract(self, text, lemma=False):
+    def extract(self, text):
         doc = self.nlp(text)
 
         adj_noun_pairs = []
@@ -44,15 +44,10 @@ class AdjNounExtractor:
                     if lefts:
                         adv = " ".join(lefts)
 
-                    if lemma:
-                        noun_text = noun.lemma_ if noun.lemma_ != '-PRON-' else noun.text.lower()
-                    else:
-                        noun_text = noun.text
-
                     if adv is not None:
-                        adj_noun_pairs.append((adv + ' ' + adj.text, noun_text))
+                        adj_noun_pairs.append((adv + ' ' + adj.text, noun.text, noun.lemma_))
                     else:
-                        adj_noun_pairs.append((adj.text, noun_text))
+                        adj_noun_pairs.append((adj.text, noun.text, noun.lemma_))
 
         return adj_noun_pairs
 
@@ -85,20 +80,21 @@ if __name__ == '__main__':
 
     results = [
         # adj and noun combinations
-        [('good', 'service'), ('good', 'environment'), ('great', 'service'), ('great', 'environment')],
-        [('exciting', 'game'), ('exciting', 'test'), ('exciting', 'experiment'), ('wonderful', 'game'),
-         ('wonderful', 'test'), ('wonderful', 'experiment')],
+        [('good', 'service', 'service'), ('good', 'environment', 'environment'), ('great', 'service', 'service'),
+         ('great', 'environment', 'environment')],
+        [('exciting', 'game', 'game'), ('exciting', 'test', 'test'), ('exciting', 'experiment', 'experiment'),
+         ('wonderful', 'game', 'game'), ('wonderful', 'test', 'test'), ('wonderful', 'experiment', 'experiment')],
 
         # adv
-        [('extremely good', 'food'), ('wonderfully awful', 'movie')],
-        [('extremely not bad', 'food'), ('not bad', 'food')],
-        [('not bad', 'thing'), ('not bad', 'It')],
+        [('extremely good', 'food', 'food'), ('wonderfully awful', 'movie', 'movie')],
+        [('extremely not bad', 'food', 'food'), ('not bad', 'food', 'food')],
+        [('not bad', 'thing', 'thing'), ('not bad', 'It', '-PRON-')],
 
         # Real world examples
-        [('Great', 'place'), ('decent', 'prices'), ('fun', 'ambience')],
-        [('loud', 'It'), ('friendly', 'staff'), ('good', 'food')],
-        [('good', 'selection')],
-        [('awesome', 'Fish'), ('awesome', 'pork'), ('Not bad', 'thing')]
+        [('Great', 'place', 'place'), ('decent', 'prices', 'price'), ('fun', 'ambience', 'ambience')],
+        [('loud', 'It', '-PRON-'), ('friendly', 'staff', 'staff'), ('good', 'food', 'food')],
+        [('good', 'selection', 'selection')],
+        [('awesome', 'Fish', 'fish'), ('awesome', 'pork', 'pork'), ('Not bad', 'thing', 'thing')]
     ]
 
     extractor = AdjNounExtractor()
