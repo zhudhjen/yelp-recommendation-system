@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     # Read data into memory line by line and split them to different lists
     files = [[] for _ in range(num_of_partition)]
-    with open(input_file, 'r') as f:
+    with open(input_file, 'r', encoding='utf-8') as f:
         for i, line in enumerate(f):
             files[i % num_of_partition].append(line)
 
@@ -25,6 +25,6 @@ if __name__ == '__main__':
     name, ext = os.path.basename(input_file).split('.')
     for i, file in enumerate(files):
         filename = output_dir + '/' + name + '_' + str(i+1) + '.' + ext
-        with open(filename, 'w') as f:
+        with open(filename, 'w', encoding='utf-8') as f:
             for line in file:
                 f.write(line)
