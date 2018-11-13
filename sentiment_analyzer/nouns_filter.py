@@ -24,5 +24,6 @@ if __name__ == '__main__':
         for noun in nouns:
             f.write(noun + '\n')
 
-    print("The number of nouns before filtering:", str(size))
-    print("The number of nouns after filtering:", str(len(nouns)))
+    print('Threshold:', str(threshold))
+    print('The number of nouns before filtering:', str(size))
+    print('The number of nouns after filtering:', str(len(nouns)))
