@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     # Read input file path and output file path
     if len(sys.argv) != 3:
-        print('Please provide path to the input file and the output file.')
+        print('Usage: python extract_triples.py [input_file] [output_file]')
         sys.exit(-1)
     input_file = sys.argv[1]
     output_file = sys.argv[2]
