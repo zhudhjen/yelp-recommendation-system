@@ -33,4 +33,4 @@ if __name__ == '__main__':
     # Output
     with open(output_file, 'w') as f:
         for noun, count in results:
-            f.write(noun + ' ' + str(count) + '\n')
+            f.write(noun + '  ' + str(count) + '\n')
