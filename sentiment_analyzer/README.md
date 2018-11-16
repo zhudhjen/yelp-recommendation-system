@@ -4,6 +4,14 @@ Some usages and details about sentiment analyzer.
 
 ## Usages
 
+Sentiment analysis pipeline:
+* ../data_partitioner/sequence_partition.py (**optional**)
+* extract_triples.py
+* nouns_counter.py
+* nouns_filter.py
+* find_relevant_nouns.ipynb
+* calculate_sentiment_polarity.py
+
 ## Details
 
 * adj_noun_extractor.py

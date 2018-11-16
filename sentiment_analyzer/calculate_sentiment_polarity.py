@@ -8,10 +8,19 @@ from textblob import TextBlob
 
 def score(line):
     obj = json.loads(line)
+    relevant_quadruples = []
+
     for triple in obj['triples']:
-        text = ' '.join([triple[0], triple[1]])
-        polarity = TextBlob(text).sentiment.polarity
-        triple.append(polarity)
+        if triple[2] in relevant_nouns:
+            text = ' '.join([triple[0], triple[1]])
+            polarity = TextBlob(text).sentiment.polarity
+
+            quadruple = [ele for ele in triple]
+            quadruple.append(polarity)
+            relevant_quadruples.append(quadruple)
+
+    obj['relevant_quadruples'] = relevant_quadruples
+
     return [json.dumps(obj)]
 
 
@@ -23,6 +32,12 @@ if __name__ == '__main__':
         sys.exit(-1)
     input_file = sys.argv[1]
     output_file = sys.argv[2]
+
+    # Read relevant nouns
+    relevant_nouns_file = 'data/relevant_nouns_to_aspect.json'
+    with open(relevant_nouns_file, 'r') as f:
+        relevant_nouns_to_aspect = json.load(f)
+        relevant_nouns = set(relevant_nouns_to_aspect.keys())
 
     # Initial Spark
     conf = SparkConf() \
