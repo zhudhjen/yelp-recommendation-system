@@ -30,6 +30,12 @@ source activate rec_sys
 
 [Doc](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/sentiment_analyzer)
 
+## Evaluation
+
+- RMSE
+- ROC AUC
+- Precision-at-K (optional)
+
 ## Links
 
 [Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
