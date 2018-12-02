@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div style="margin: 25px auto; width: 700px;">
+        <form method="POST" action="{{ url_for('recommend') }}">
+            <br>
+            <input type="text">
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+
+    {% if post_flag %}
+    <div>
+        <table border="1">
+            <tr>
+                {% for key in recommendations[0].keys() %}
+                    <th> {{ key }} </th>
+                {% endfor %}
+            </tr>
+
+            {% for recommendation in recommendations %}
+                <tr>
+                    {% for value in recommendation.values() %}
+                        <td> {{ value }} </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+{% endblock %}

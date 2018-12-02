@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    Recommendation System on Yelp
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="{{ url_for('index') }}">Recommendation System on Yelp</a>
+		</div>
+		<div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+				<li><a href="{{ url_for('index') }}">Recommend</a></li>
+                <li><a href="{{ url_for('statistics') }}">Statistics</a></li>
+			</ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('usages') }}">Usages</a></li>
+                <li><a href="{{ url_for('links') }}">Links</a></li>
+            </ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+    {% block page_content %}{% endblock %}
+{% endblock %}
