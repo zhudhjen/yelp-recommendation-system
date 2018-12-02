@@ -7,8 +7,8 @@ from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
-# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-# app.secret_key = 'yelp recommendation system secret key'
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.secret_key = 'yelp recommendation system secret key'
 Bootstrap(app)
 
 
