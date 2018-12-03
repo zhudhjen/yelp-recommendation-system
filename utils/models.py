@@ -86,6 +86,16 @@ class Review:
                list(map(lambda review: review.rating, reviews))
 
     @classmethod
+    def extract_user_seen_business(cls, reviews: 'List[Review]') -> 'Dict[str, Set[str]]':
+        user_seen_businesses = {}
+        for review in reviews:
+            if review.user_id not in user_seen_businesses:
+                user_seen_businesses[review.user_id] = set()
+            user_seen_businesses[review.user_id].add(review.rating)
+
+        return user_seen_businesses
+
+    @classmethod
     def extract_user_average_and_std(cls, reviews: 'List[Review]') -> 'Tuple[Dict[str, float], Dict[str, float]]':
         user_ratings = {}
         for review in reviews:

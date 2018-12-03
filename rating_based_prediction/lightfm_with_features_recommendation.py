@@ -1,4 +1,4 @@
-import math
+import json
 import sys
 import time
 from typing import List, Dict
@@ -6,14 +6,13 @@ from typing import List, Dict
 import numpy as np
 from lightfm import LightFM
 from lightfm.data import Dataset
-from sklearn.metrics import mean_squared_error, roc_auc_score
 
 from utils.models import Review, User, Business
 
 if __name__ == '__main__':
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 6:
         print("Usage: python3 lightfm_experiment.py <PATH_TO_TRAINING_SET> "
-              "<PATH_TO_TESTING_SET> <USER_STATS_FILE> <BUSINESS_STATS_FILE>")
+              "<PATH_TO_TESTING_SET> <USER_STATS_FILE> <BUSINESS_STATS_FILE> <OUTPUT_FILE>")
         exit(1)
 
     start_time = time.time()
@@ -22,6 +21,7 @@ if __name__ == '__main__':
     testing_set_file = sys.argv[2]
     user_stats_file = sys.argv[3]
     business_stats_file = sys.argv[4]
+    output_file = sys.argv[5]
 
     print('[ %04ds ] Program started' % (time.time() - start_time))
 
@@ -72,11 +72,18 @@ if __name__ == '__main__':
 
     recommendations = []
     n_businesses = len(training_business_ids)
+    n_users = len(training_user_ids)
     best_k = 100
     user_id_map, business_id_map = dataset.mapping()
-    for user in training_user_ids:
-        user_recommendations = {'user_id': user, 'recommended_businesses': []}
+    user_seen_businesses = Review.extract_user_seen_business(training_set)
+    for user in range(n_users):
+        user_recommendations = {'user_id': user_id_map[user], 'recommended_businesses': []}
         predictions = model.predict(np.repeat(user, n_businesses), np.arange(0, n_businesses))
         predictions_with_bid = list(zip(predictions, np.arange(0, n_businesses)))
         sorted_predictions = sorted(predictions_with_bid, reverse=True)
+        for prediction, bid in sorted_predictions:
+            if business_id_map[bid] not in user_seen_businesses[user_id_map[user]]:
+                user_recommendations['recommended_businesses'].append(bid)
 
+    with open(output_file, 'w') as f:
+        json.dump(recommendations, f)
