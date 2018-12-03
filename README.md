@@ -42,9 +42,12 @@ source activate rec_sys
 
 ### Qiming Du
 
-* Data Viewer
-* Sentiment Analyzer
+* Data Viewer (a SQLite database built from Yelp Dataset for easy data exploration)
+* Sentiment Analyzer (aspect-based sentiment analysis on review text)
 
 ### Dinghan Zhu
 
 ### Wenjing Duan
+
+* ItemBased & UserBased Recommendation System
+* ModelBased Recommendation System
