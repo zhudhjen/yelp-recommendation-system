@@ -17,6 +17,10 @@ Aspect-Based sentiment analysis pipeline:
 
 ## Details
 
+* adj_noun_extractor.py
+    * A Python class that can extract adjective-noun pairs from review text
+* spark_vs_loop.ipynb
+    * Time comparison between Spark and loop with `AdjNounExtractor`
 * extract_triples.py
     * Extract (adverb adjective, noun, base format of noun) triples from review text
 * nouns_counter.py
@@ -34,9 +38,4 @@ Aspect-Based sentiment analysis pipeline:
 * compute_aspect_score.py
     * Compute average score of every aspect for every business
 * rating.py
-    * Scale sentiment polarity (-1.0 to 1.0) to rating (0 to 5).
-
-* adj_noun_extractor.py
-    * A Python class that can extract adjective-noun pairs from review text
-* spark_vs_loop.ipynb
-    * Time comparison between spark and loop with `AdjNounExtractor`
+    * Scale sentiment polarity (-1.0 to 1.0) to rating (0 to 5)
