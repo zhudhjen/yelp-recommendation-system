@@ -1,8 +1,6 @@
 # Yelp Recommendation System
 
-Recommend new restaurants to customers according to [Yelp Dataset](https://www.yelp.com/dataset/challenge).
-
-**Note**: If you need to add some codes or docs or even directories only used by yourself in the repo, please modify things in `.git/info/exclude` instead of `.gitignore`.
+Recommend businesses to customers based on [Yelp Dataset](https://www.yelp.com/dataset/challenge).
 
 ## Installation
 
@@ -22,13 +20,11 @@ source activate rec_sys
 
 **Note**: The `requirements.txt` may not contain all required packages. Please use `conda install` if there is any missing package.
 
-## Data Viewer
+## Documentations
 
-[Doc](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/data_viewer)
+[Data Viewer](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/data_viewer)
 
-## Sentiment Analyzer
-
-[Doc](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/sentiment_analyzer)
+[Sentiment Analyzer](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/sentiment_analyzer)
 
 ## Evaluation
 
@@ -38,6 +34,17 @@ source activate rec_sys
 
 ## Links
 
-[Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
+* [Yelp Dataset](https://www.yelp.com/dataset/challenge)
+* [Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
+* [Data](https://drive.google.com/open?id=1v-ayr_m-0MUgviN6pulnRzdn-5hx9oQC)
 
-[Updates](https://docs.google.com/document/d/1hjC-rEDI9wovttoo9SyrPneD1aTt512K5kQDevwL0Xg/edit?usp=sharing)
+## Contributions
+
+### Qiming Du
+
+* Data Viewer
+* Sentiment Analyzer
+
+### Dinghan Zhu
+
+### Wenjing Duan

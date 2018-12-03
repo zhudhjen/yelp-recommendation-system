@@ -5,24 +5,25 @@ import org.apache.spark.{SparkConf, SparkContext}
 import scala.collection.immutable.Map
 import scala.collection.mutable
 
-object UserBasedCF {
+object ItemBased {
 
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
-    conf.setAppName("ModelBasedCF")
+    conf.setAppName("ItemBased")
     conf.setMaster("local")
     val sc = new SparkContext(conf)
-
-    val raw_training_data = sc.textFile(args(0))
+    
+    val raw_training_data = sc.textFile("/Users/dwj/CSCI553/HW/Project/yelp-recommendation-system/baseline/data/train_data_full.csv")
     val training_header = raw_training_data.first()
     val parsed_training_data = raw_training_data.filter(row => row != training_header).map(_.split(','))
 
-    val raw_testing_data = sc.textFile(args(1))
+    val raw_testing_data = sc.textFile("/Users/dwj/CSCI553/HW/Project/yelp-recommendation-system/baseline/data/test_data_full.csv")
     val testing_header = raw_testing_data.first()
     val parsed_testing_data = raw_testing_data.filter(row => row != testing_header).map(_.split(','))
 
     val start_time = System.nanoTime()
 
+    //distinct users: 1518169
     val users = parsed_training_data.union(parsed_testing_data)
       .map { case Array(user, business, star) => (user, 1) }
       .reduceByKey(_ + _)
@@ -256,11 +257,11 @@ object UserBasedCF {
     val end_time = System.nanoTime()
     val elapsed_time: Long = (end_time - start_time) / 1000000000
 
-    val sorted_predictions = normalized_predictions.sortByKey().map { case ((user, business), rate) =>
+    val sorted_predictions = normalized_predictions.map { case ((user, business), rate) =>
       user_list(user) + ',' + business_list(business) + ',' + rate.toString + '\n'
     }.collect()
 
-    val output_file = new File("/Users/dwj/CSCI553/HW/HW1/UserBasedCF.txt")
+    val output_file = new File("/Users/dwj/CSCI553/HW/HW1/ItemBasedCF.txt")
 
     val pw = new PrintWriter(output_file)
     for (row <- sorted_predictions) {
@@ -271,17 +272,17 @@ object UserBasedCF {
     val ratesAndPreds = testing_ratings.map { case (user, business, rating) => ((user, business), rating) }
       .join(normalized_predictions)
 
-    val distribution = ratesAndPreds.map { case ((user, business), (gt, prediction)) =>
-      val x: Int = Math.floor(Math.abs(gt - prediction)).toInt
-      if (x >= 4) {
-        (">=4", 1)
-      } else {
-        (s">=$x and <${x + 1}", 1)
-      }
-    }.reduceByKey(_ + _)
-      .sortByKey()
-      .map(item => item._1 + ": " + item._2.toString)
-      .collect()
+    // val distribution = ratesAndPreds.map { case ((user, business), (gt, prediction)) =>
+    //   val x: Int = Math.floor(Math.abs(gt - prediction)).toInt
+    //   if (x >= 4) {
+    //     (">=4", 1)
+    //   } else {
+    //     (s">=$x and <${x + 1}", 1)
+    //   }
+    // }.reduceByKey(_ + _)
+    //   .sortByKey()
+    //   .map(item => item._1 + ": " + item._2.toString)
+    //   .collect()
 
 
     val MSE = ratesAndPreds.map { case ((user, business), (r1, r2)) =>
@@ -291,7 +292,7 @@ object UserBasedCF {
 
     val RMSE = Math.sqrt(MSE)
 
-    distribution.foreach(println)
+    // distribution.foreach(println)
     println(s"RMSE: $RMSE")
     println(s"Time: $elapsed_time sec")
     sc.stop()
