@@ -20,7 +20,7 @@ source activate rec_sys
 
 **Note**: The `requirements.txt` may not contain all required packages. Please use `conda install` if there is any missing package.
 
-## 
+## Documentations
 
 [Data Viewer](https://github.com/zhudhjen/yelp-recommendation-system/tree/master/data_viewer)
 
@@ -34,11 +34,9 @@ source activate rec_sys
 
 ## Links
 
-[Yelp Dataset](https://www.yelp.com/dataset/challenge)
-
-[Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
-
-[Data](https://drive.google.com/open?id=1v-ayr_m-0MUgviN6pulnRzdn-5hx9oQC)
+* [Yelp Dataset](https://www.yelp.com/dataset/challenge)
+* [Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
+* [Data](https://drive.google.com/open?id=1v-ayr_m-0MUgviN6pulnRzdn-5hx9oQC)
 
 ## Contributions
 
