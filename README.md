@@ -48,3 +48,6 @@ source activate rec_sys
 ### Dinghan Zhu
 
 ### Wenjing Duan
+
+* Develop ItemBased & UserBased Recommendation System
+* Develop ModelBased Recommendation System
