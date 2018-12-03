@@ -47,6 +47,10 @@ source activate rec_sys
 
 ### Dinghan Zhu
 
+* LightFM Model Recommendation System 
+* Spotlight Model Recommendation System
+* Analyze and determine evaluation methods
+
 ### Wenjing Duan
 
 * ItemBased & UserBased Recommendation System
