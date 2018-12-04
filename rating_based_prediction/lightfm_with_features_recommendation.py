@@ -11,7 +11,7 @@ from utils.models import Review, User, Business
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
-        print("Usage: python3 lightfm_experiment.py <PATH_TO_TRAINING_SET> "
+        print("Usage: python3 lightfm_with_features_recommendation.py <PATH_TO_TRAINING_SET> "
               "<PATH_TO_TESTING_SET> <USER_STATS_FILE> <BUSINESS_STATS_FILE> <OUTPUT_FILE>")
         exit(1)
 
