@@ -34,16 +34,18 @@ if __name__ == '__main__':
     all_user_features = ['NO_FEAT']
     all_business_features = Business.collect_business_features(business_stats)
 
+    all_user_ids = User.extract_user_ids(user_stats)
+    all_business_ids = Business.extract_business_ids(business_stats)
+
     dataset = Dataset()
-    dataset.fit(User.extract_user_ids(user_stats),
-                Business.extract_business_ids(business_stats),
+    dataset.fit(all_user_ids, all_business_ids,
                 user_features=all_user_features, item_features=all_business_features)
 
     user_features = dataset.build_user_features(
-        User.build_user_features(user_stats, User.extract_user_ids(user_stats)), True)
+        User.build_user_features(user_stats, all_user_ids), True)
 
     business_features = dataset.build_item_features(
-        Business.build_business_features(business_stats, Business.extract_business_ids(business_stats)), True)
+        Business.build_business_features(business_stats, all_business_ids), True)
 
     print('[ %04ds ] Dataset initialized' % (time.time() - start_time))
 
@@ -72,18 +74,40 @@ if __name__ == '__main__':
 
     recommendations = []
     n_businesses = len(training_business_ids)
-    n_users = len(training_user_ids)
-    best_k = 100
-    user_id_map, business_id_map = dataset.mapping()
+    # n_users = len(training_user_ids)
+    best_k = 50
+    user_id_map, _, business_id_map, __ = dataset.mapping()
+
+    business_ids_list = list(training_business_ids)
+    training_business_indices = np.array(list(map(lambda id: business_id_map[id], business_ids_list)))
     user_seen_businesses = Review.extract_user_seen_business(training_set)
-    for user in range(n_users):
-        user_recommendations = {'user_id': user_id_map[user], 'recommended_businesses': []}
-        predictions = model.predict(np.repeat(user, n_businesses), np.arange(0, n_businesses))
-        predictions_with_bid = list(zip(predictions, np.arange(0, n_businesses)))
-        sorted_predictions = sorted(predictions_with_bid, reverse=True)
-        for prediction, bid in sorted_predictions:
-            if business_id_map[bid] not in user_seen_businesses[user_id_map[user]]:
-                user_recommendations['recommended_businesses'].append(bid)
+
+    print('[ %04ds ] Ready to produce recommendations' % (time.time() - start_time))
+    finished = 0
+    with open('user_list.json', 'r') as f:
+        recommendation_user_list = json.load(f)['users']
+
+    n_users = len(recommendation_user_list)
+    for user_id in recommendation_user_list:
+        # user_recommendations = {'user_id': user_id, 'recommended_businesses': []}
+        user_index = user_id_map[user_id]
+        predictions = model.predict(np.repeat(user_index, n_businesses), training_business_indices)
+        recommendations_list = np.array(business_ids_list)[np.argsort(-np.array(predictions))[:best_k]]
+        # predictions_with_bid = list(zip(predictions, business_ids_list))
+        # sorted_predictions = sorted(predictions_with_bid, reverse=True)
+        # for prediction, bid in sorted_predictions:
+        #     if bid not in user_seen_businesses[user_id]:
+        #         user_recommendations['recommended_businesses'].append(bid)
+        #     if len(user_recommendations['recommended_businesses']) >= best_k:
+        #         break
+        recommendations.append({'user_id': user_id, 'recommended_businesses': recommendations_list.tolist()})
+        finished += 1
+        if finished % 100 == 0:
+            print('[ %04ds ] Finished recommendations: %08d/%08d' % (time.time() - start_time, finished, n_users))
+        if finished % (n_users / 100) == 0:
+            print('[ %04ds ] Finished recommendations: %02d%%' % (time.time() - start_time, finished / (n_users / 100)))
+        if finished > 100000:
+            break
 
     with open(output_file, 'w') as f:
-        json.dump(recommendations, f)
+        json.dump({'recommendations': recommendations}, f, indent=4, separators=(', ', ': '))
