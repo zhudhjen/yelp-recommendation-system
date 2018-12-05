@@ -1,6 +1,6 @@
-# Yelp Recommendation System
+# Recommendation System with Aspect-Based Sentiment Analysis
 
-Recommend businesses to customers based on [Yelp Dataset](https://www.yelp.com/dataset/challenge).
+Recommend businesses to users based on [Yelp Dataset](https://www.yelp.com/dataset/challenge).
 
 ## Installation
 
