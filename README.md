@@ -1,4 +1,4 @@
-# Recommendation System with Aspect-Based Sentiment Analysis
+# Recommendation System
 
 Recommend businesses to users based on [Yelp Dataset](https://www.yelp.com/dataset/challenge).
 

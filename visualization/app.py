@@ -13,6 +13,7 @@ Bootstrap(app)
 
 
 rating_file = 'data/business_ratings.json'
+review_count_file = 'data/business_review_count.json'
 recommendation_file = ''
 
 recommended_business_ids = [
@@ -29,12 +30,31 @@ recommended_business_ids = [
 ]
 
 
-# Load business ratings
+# Load business review count
+business_review_count = {}
+with open(review_count_file, 'r') as f:
+    for line in f:
+        review_count = json.loads(line)
+        business_review_count[review_count['business_id']] = review_count['review_count']
+
+# Load business rating and aspects statistics
 business_ratings = {}
+available_aspects = [[] for _ in range(6)]
 with open(rating_file, 'r') as f:
     for line in f:
         business = json.loads(line)
+        num = len([1 for value in business.values() if value != 'N/A']) - 1  # Remove the business_id
+        available_aspects[num].append(business_review_count[business['business_id']])
         business_ratings[business['business_id']] = business
+
+# Construct statistics data for doughnut chart
+doughnut_data_nums = []
+doughnut_data_review_count = []
+for businesses in available_aspects:
+    num = len(businesses)
+    average = round(sum(businesses) / num, 2)
+    doughnut_data_nums.append(num)
+    doughnut_data_review_count.append(average)
 
 
 @app.route('/', methods=['GET'])
@@ -50,7 +70,11 @@ def recommend():
 
 @app.route('/statistics')
 def statistics():
-    return render_template('index.html', post_flag=False)
+    return render_template(
+        'statistics.html',
+        doughnut_data_nums=doughnut_data_nums,
+        doughnut_data_review_count=doughnut_data_review_count
+    )
 
 
 @app.route('/usages')

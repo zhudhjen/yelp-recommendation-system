@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}
-    Recommendation System on Yelp
+    Recommendation System
 {% endblock %}
 
 {% block styles -%}
@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block scripts %}
-{{super()}}
+{{ super() }}
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/fh-3.1.4/datatables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -42,4 +42,3 @@
     });
 </script>
 {% endblock %}
-

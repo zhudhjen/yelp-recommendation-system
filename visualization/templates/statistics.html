@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div style="width: 700px; margin: 35px auto">
+    <canvas id="doughnut1" ></canvas>
+</div>
+<div style="width: 700px; margin: 35px auto">
+    <canvas id="doughnut2" ></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script>
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+    };
+
+
+    var nums = {{ doughnut_data_nums }};
+    var review_count = {{ doughnut_data_review_count }};
+
+    var colors = [
+        window.chartColors.red,
+        window.chartColors.orange,
+        window.chartColors.yellow,
+        window.chartColors.green,
+        window.chartColors.blue,
+        window.chartColors.purple
+    ];
+    var labels = [
+        '0 aspect',
+        '1 aspect',
+        '2 aspects',
+        '3 aspects',
+        '4 aspects',
+        '5 aspects'
+    ];
+    var options = {};
+
+    // Doughnut Chart 1 (review count)
+    var doughnut1 = document.getElementById('doughnut1').getContext('2d');
+    var data1 = {
+        datasets: [{
+            data: review_count,
+            backgroundColor: colors
+        }],
+        labels: labels
+    };
+    var doughnutChart1 = new Chart(doughnut1, {
+        type: 'doughnut',
+        data: data1,
+        options: options
+    });
+
+    // Doughnut Chart 1 (number of businesses)
+    var doughnut2 = document.getElementById('doughnut2').getContext('2d');
+    var data2 = {
+        datasets: [{
+            data: nums,
+            backgroundColor: colors
+        }],
+        labels: labels
+    };
+    var doughnutChart2 = new Chart(doughnut2, {
+        type: 'doughnut',
+        data: data2,
+        options: options
+    });
+</script>
+{% endblock %}
