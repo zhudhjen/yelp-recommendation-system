@@ -2,10 +2,10 @@
 
 {% block page_content %}
 <div style="width: 700px; margin: 35px auto">
-    <canvas id="doughnut1" ></canvas>
+    <canvas id="bar" ></canvas>
 </div>
 <div style="width: 700px; margin: 35px auto">
-    <canvas id="doughnut2" ></canvas>
+    <canvas id="doughnut" ></canvas>
 </div>
 {% endblock %}
 
@@ -43,36 +43,39 @@
         '4 aspects',
         '5 aspects'
     ];
-    var options = {};
 
     // Doughnut Chart 1 (review count)
-    var doughnut1 = document.getElementById('doughnut1').getContext('2d');
-    var data1 = {
+    var bar = document.getElementById('bar').getContext('2d');
+    var bar_data = {
         datasets: [{
             data: review_count,
             backgroundColor: colors
         }],
         labels: labels
     };
-    var doughnutChart1 = new Chart(doughnut1, {
-        type: 'doughnut',
-        data: data1,
-        options: options
+    var barChart = new Chart(bar, {
+        type: 'bar',
+        data: bar_data,
+        options: {
+            legend: {
+                display: false
+            }
+        }
     });
 
     // Doughnut Chart 1 (number of businesses)
-    var doughnut2 = document.getElementById('doughnut2').getContext('2d');
-    var data2 = {
+    var doughnut = document.getElementById('doughnut').getContext('2d');
+    var doughnut_data = {
         datasets: [{
             data: nums,
             backgroundColor: colors
         }],
         labels: labels
     };
-    var doughnutChart2 = new Chart(doughnut2, {
+    var doughnutChart = new Chart(doughnut, {
         type: 'doughnut',
-        data: data2,
-        options: options
+        data: doughnut_data,
+        options: {}
     });
 </script>
 {% endblock %}
