@@ -1,6 +1,4 @@
 import json
-import os
-import random
 
 from flask import Flask, request, render_template, redirect, url_for, flash, send_file
 from flask_bootstrap import Bootstrap
@@ -14,20 +12,7 @@ Bootstrap(app)
 
 rating_file = 'data/business_ratings.json'
 review_count_file = 'data/business_review_count.json'
-recommendation_file = ''
-
-recommended_business_ids = [
-    'iCQpiavjjPzJ5_3gPD5Ebg',
-    'Ums3gaP2qM3W1XcA5r6SsQ',
-    'atVh8viqTj-sqDJ35tAYVg',
-    'yEOu75XjwczngvWWlr0M_A',
-    'alG1fb1kl2vmT8s34jbbHg',
-    'd4z4gjdhQYs-WOVClISf_A',
-    '7AlULGZI1pHt0imODsqdkg',
-    'SpJYus_184M2TdT7t52rIA',
-    'vsFFbN71ehRCp46KeR5RdQ',
-    'YTbKmjGTdn4YzoJXTC1u7g'
-]
+recommendation_file = 'data/lightfm_recommendations_full.json'
 
 
 # Load business review count
@@ -56,6 +41,13 @@ for businesses in available_aspects:
     doughnut_data_nums.append(num)
     doughnut_data_review_count.append(average)
 
+# Load recommendation file
+user_recommendations = {}
+with open(recommendation_file, 'r') as f:
+    recommendations = json.load(f)['recommendations']
+for recommendation in recommendations:
+    user_recommendations[recommendation['user_id']] = recommendation
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -64,8 +56,13 @@ def index():
 
 @app.route('/', methods=['POST'])
 def recommend():
-    recommendations = [business_ratings[id] for id in recommended_business_ids]
-    return render_template('index.html', recommendations=recommendations, post_flag=True)
+    user_id = request.form['user_id']
+    if user_id in user_recommendations:
+        recommended_business_ids = user_recommendations[user_id]['recommended_businesses']
+        recommended_businesses = [business_ratings[business_id] for business_id in recommended_business_ids]
+        return render_template('index.html', recommendations=recommended_businesses, post_flag=True)
+    else:
+        return render_template('index.html', post_flag=False)
 
 
 @app.route('/statistics')

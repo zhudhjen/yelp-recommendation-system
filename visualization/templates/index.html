@@ -4,12 +4,12 @@
 <div class="container">
     <form method="POST" action="{{ url_for('recommend') }}" class="row">
         <div class="col-xs-6 col-xs-offset-2">
-            <input id="user-id" type="text" class="form-control" placeholder="User ID">
+            <input id="user-id" name="user_id" type="text" class="form-control" placeholder="User ID">
         </div>
         <div class="col-xs-2 ">
             <input type="submit" class="btn btn-primary form-control">
         </div>
-        </form>
+    </form>
     {% if post_flag %}
     <div style="margin-top: 20px">
         <table id="recommendations" class="table table-striped table-bordered">
