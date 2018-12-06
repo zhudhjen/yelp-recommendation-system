@@ -74,9 +74,9 @@ def statistics():
     )
 
 
-@app.route('/usages')
-def usages():
-    return render_template('usages.html')
+@app.route('/usage')
+def usage():
+    return render_template('usage.html')
 
 
 @app.route('/links')
