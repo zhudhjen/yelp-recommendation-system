@@ -7,11 +7,21 @@
             <input id="user-id" name="user_id" type="text" class="form-control" placeholder="User ID">
         </div>
         <div class="col-xs-2 ">
-            <input type="submit" class="btn btn-primary form-control">
+            <input type="submit" class="btn btn-primary form-control" value="Recommend">
         </div>
     </form>
     {% if post_flag %}
     <div style="margin-top: 20px">
+        <style>
+            #recommendations tr td:first-of-type {
+                font-family: monospace;
+            }
+        </style>
+        <p>
+            <em>
+                Searching for user <strong>{{ user_id }}</strong>
+            </em>
+        </p>
         <table id="recommendations" class="table table-striped table-bordered">
             <thead>
             {% for key in recommendations[0].keys() %}

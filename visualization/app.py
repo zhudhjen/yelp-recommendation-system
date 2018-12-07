@@ -1,8 +1,7 @@
 import json
 
-from flask import Flask, request, render_template, redirect, url_for, flash, send_file
+from flask import Flask, request, render_template
 from flask_bootstrap import Bootstrap
-
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -12,7 +11,7 @@ Bootstrap(app)
 
 rating_file = 'data/business_ratings.json'
 review_count_file = 'data/business_review_count.json'
-recommendation_file = 'data/lightfm_recommendations_full.json'
+recommendation_file = 'data/recommendations.json'
 
 
 # Load business review count
@@ -60,7 +59,7 @@ def recommend():
     if user_id in user_recommendations:
         recommended_business_ids = user_recommendations[user_id]['recommended_businesses']
         recommended_businesses = [business_ratings[business_id] for business_id in recommended_business_ids]
-        return render_template('index.html', recommendations=recommended_businesses, post_flag=True)
+        return render_template('index.html', recommendations=recommended_businesses, post_flag=True, user_id=user_id)
     else:
         return render_template('index.html', post_flag=False)
 
