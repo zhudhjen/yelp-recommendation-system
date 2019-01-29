@@ -37,21 +37,3 @@ source activate rec_sys
 * [Yelp Dataset](https://www.yelp.com/dataset/challenge)
 * [Proposal](https://docs.google.com/document/d/12MQUmbk-Ioh7L3wukDj7LEOFFX_jXR6YvxfCKi6jSwk/edit)
 * [Data](https://drive.google.com/open?id=1v-ayr_m-0MUgviN6pulnRzdn-5hx9oQC)
-
-## Contributions
-
-### Qiming Du
-
-* Data Viewer (a SQLite database built from Yelp Dataset for easy data exploration)
-* Sentiment Analyzer (aspect-based sentiment analysis on review text)
-
-### Dinghan Zhu
-
-* LightFM Model Recommendation System 
-* Spotlight Model Recommendation System
-* Analyze and determine evaluation methods
-
-### Wenjing Duan
-
-* ItemBased & UserBased Recommendation System
-* ModelBased Recommendation System
