@@ -10,7 +10,12 @@ pip install flask
 pip install flask-bootstrap
 ```
 
-Download required data from [here](https://drive.google.com/open?id=1v-ayr_m-0MUgviN6pulnRzdn-5hx9oQC) and put them in the `data` folder.
+## Preparation
+
+Create a `data` folder and put required files in it:
+* business_ratings.json
+* business_review_count.json
+* recommendations.json
 
 ## Usage
 

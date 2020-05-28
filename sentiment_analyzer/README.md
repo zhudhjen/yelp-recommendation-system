@@ -4,16 +4,16 @@ Some usages and details about sentiment analyzer.
 
 ## Usages
 
-Aspect-Based sentiment analysis pipeline:
-* ../data_partitioner/sequence_partition.py (**optional**)
-* extract_triples.py
-* nouns_counter.py
-* nouns_filter.py
-* find_relevant_nouns.ipynb
-* calculate_sentiment_polarity.py
-* aggregate_sentiment_polarity.py
-* compute_aspect_score.py
-* rating.py
+Run Python files below in order:
+1. ../data_partitioner/sequence_partition.py (**optional**)
+2. extract_triples.py
+3. nouns_counter.py
+4. nouns_filter.py
+5. find_relevant_nouns.ipynb
+6. calculate_sentiment_polarity.py
+7. aggregate_sentiment_polarity.py
+8. compute_aspect_score.py
+9. rating.py
 
 ## Details
 
